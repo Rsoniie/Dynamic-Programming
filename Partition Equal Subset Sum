@@ -1,0 +1,47 @@
+*******APPROACH 1 BRUTE FORCE USING RECURRSION ************
+--------------------------------------------------------------------
+
+*********************APPROACH 2 USING MEMOIZATION****************************
+
+int f(vector<int>&arr, int i, int tar, vector<vector<int>>&dp)
+{
+	if(tar == 0 )
+	{
+		return 1;
+	}
+	if(i == 0)
+	{
+		return (arr[0] == tar);
+	}
+	if(dp[i][tar] != -1)
+	{
+		return dp[i][tar];
+	}
+
+	int ntake = f(arr, i-1, tar, dp);
+	int take = 0;
+	if(arr[i] <= tar)
+	{
+		take = f(arr, i-1, tar-arr[i], dp);
+	}
+
+	return dp[i][tar] = ntake|take;
+}
+bool canPartition(vector<int> &arr, int n)
+{
+   int sum = 0;
+
+   for(int i=0;i<n;i++)
+   {
+	   sum+=arr[i];
+   }
+   int tar = sum/2;
+      vector<vector<int>> dp(n, vector<int>(tar+1, -1));
+   if(sum%2!=0)
+   {
+	   return 0;
+   }
+   
+   return f(arr, n-1, tar, dp);	
+   
+} 
