@@ -1,0 +1,46 @@
+*******APPROACH  1 BRUTE FORCE ***** TC = O(N^3) ***********
+-------------------------------------------------------------
+*******APPROACH 2 USING MEMOIZATION DP  TC = O(N*K) ***********
+
+
+#include <bits/stdc++.h> 
+int f(vector<int>&a, int n, int k, vector<vector<int>> &dp)
+{
+    if(k==0)
+    {
+        return 1;
+    }
+    if(n==0)
+    {
+        return (a[0]==k);
+    }
+    if(dp[n][k] != -1)
+    {
+        return dp[n][k];
+    }
+    int ntake = f(a, n-1, k,dp);
+    int take = false;
+    if(k>=a[n])
+    {
+        take = f(a,n-1, k-a[n], dp);
+    }
+
+    return dp[n][k] = take | ntake;
+
+}
+bool subsetSumToK(int n, int k, vector<int> &arr) {
+    vector<vector<int>> dp(n+1, vector<int> (k+1, -1));
+   
+
+
+    return f(arr, n, k, dp);
+}
+
+
+----------------------------------------------------------------------------------------------
+
+
+***********APPROACH 3 USING TABULATION TECHNIQUE ******** TC = O(N^2) SC = O(N^2) ***********
+
+
+
