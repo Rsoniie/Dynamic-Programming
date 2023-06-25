@@ -1,0 +1,29 @@
+******************APPROACH 1 USING RECURSSION**********************
+--------------------------------------------------------------------
+**********APPROACH 2 USING MEMOIZATION***************************
+# include<bits/stdc++.h>
+long f(int *denominations, int i, int tar, vector<vector<long>>&dp)
+{
+    if(i==0)
+    {
+        return (tar%denominations[0]==0);
+    }
+     if(dp[i][tar] != -1)
+     {
+         return dp[i][tar];
+     }
+
+    long ntake = f(denominations, i-1, tar, dp);
+    long take = 0;
+    if(denominations[i] <= tar)
+    {
+        take = f(denominations, i, tar-denominations[i], dp);
+    }
+
+    return dp[i][tar] = ntake+take;
+}
+long countWaysToMakeChange(int *denominations, int n, int value)
+{
+    vector<vector<long>> dp(n, vector<long>(value+1, -1));
+    return f(denominations, n-1, value, dp);
+}
