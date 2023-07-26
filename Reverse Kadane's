@@ -1,0 +1,30 @@
+*********TC = O(N)******SC = O(1)***********
+#include <bits/stdc++.h> 
+int minimumSum (vector<int>& arr, int n)
+{
+    int ans = INT_MAX;
+    int sum = 0;
+    int mini = INT_MAX;
+    bool che = false;
+    for(int i=0;i<arr.size();i++)
+    {
+        sum+=arr[i];
+        if(arr[i] <= 0)
+        {
+            che = true;
+        }
+        ans = min(ans, sum);
+        mini = min(mini, arr[i]);
+        if(sum >= 0)
+        {
+            sum = 0;
+            ans = min(ans, sum);
+        }
+        //ans = min(ans, sum);
+    }
+    if(che == false)
+    {
+        return mini;
+    }
+    return ans;
+}
